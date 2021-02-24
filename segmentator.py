@@ -1,3 +1,4 @@
+import os
 import cv2
 import torch
 import numpy as np
@@ -81,6 +82,7 @@ class FaceSegmentator:
 
         pretrained_path = join(current_dir, "pretrained", "bisenet.pth")
         if not exists(pretrained_path):
+            os.makedirs(join(current_dir, "pretrained"), exist_ok=True)
             download_file_from_google_drive(id_pretrained, pretrained_path)
         
         self.seg_model.load_state_dict(torch.load(pretrained_path, map_location=self.device))
